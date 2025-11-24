@@ -74,7 +74,7 @@ app.get("/", (_, res) => {
 });
 
 
-app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(8000, "0.0.0.0", () => {
+  console.log("API running on port 8000");
 });
 
