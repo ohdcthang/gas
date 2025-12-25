@@ -4,10 +4,7 @@ export class GasLimitService {
   private MAX_HISTORY = 10;
 
   private getKey(service: string, chain?: string, token?: string) {
-    if (service === "transfer" && chain && token) {
-      return `gas:limit:transfer:${chain}:${token}`;
-    }
-    return `gas:limit:${service}`;
+    return `gas:limit:${service}:${chain}:${token || ''}`;
   }
 
   async recordGasLimit(service: string, gasLimit: number, chain?: string, token?: string) {
@@ -22,7 +19,6 @@ export class GasLimitService {
 
   async getGasLimit(service: string, chain?: string, token?: string) {
     const key = this.getKey(service, chain, token);
-
     const list = await redis.lrange(key, 0, -1);
     if (list.length === 0) return null;
 

@@ -2,14 +2,21 @@ import express, { Application } from 'express';
 import { EvmGasProviders } from './providers/evm';
 import { getGasEvm, getSolanaGas } from './services/gasService';
 import { gasLimitService } from './services/gasLimitService';
+import { CHAIN_TYPE } from './constants/chainIds';
 
 const app: Application = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 
-app.get("/gas/evm/:chain", async (req, res) => {
+app.get("/gas/:chain", async (req, res) => {
   const { chain } = req.params;
+
+  if(chain === CHAIN_TYPE.solana) {
+    const data = await getSolanaGas();
+    return res.json(data);
+  }
+  
   const evmProviders = await EvmGasProviders.create();
 
   const config = evmProviders.chainExists(chain);
@@ -74,7 +81,7 @@ app.get("/", (_, res) => {
 });
 
 
-app.listen(8000, "0.0.0.0", () => {
+app.listen(8080, () => {
   console.log("API running on port 8000");
 });
 
