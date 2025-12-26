@@ -42,7 +42,7 @@ export async function getGasEvm(chain: string, ttlBlocks: number) {
   return data;
 }
 
-const SOLANA_TTL_BLOCKS = 50
+const SOLANA_TTL_BLOCKS = 100
 
 export async function getSolanaGas() {
   const solanaProvider = await SolanaProviders.create();

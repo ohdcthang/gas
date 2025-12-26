@@ -2,7 +2,7 @@ import { CHAIN_DATA } from "../constants/chainDatas"
 import Web3 from "web3"
 
 export class EvmGasProviders {
-  private BLOCK_NUMBER_CACHED = 50;
+  private BLOCK_NUMBER_CACHED = 100;
   private clientCached: Map<string, Web3> = new Map();
   static instance: EvmGasProviders;
   chains: any = {};
